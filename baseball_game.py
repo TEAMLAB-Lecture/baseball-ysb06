@@ -274,7 +274,6 @@ def main():
 
         while result != [3, 0]:
             user_input = input('Input guess number : ')
-            print(user_input)
             if is_validated_number(user_input):
                 result = get_strikes_or_ball(user_input, random_number)
                 print(f"Strike: {result[0]}, Ball: {result[1]}")
