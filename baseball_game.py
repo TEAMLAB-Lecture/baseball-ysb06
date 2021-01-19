@@ -264,6 +264,7 @@ def is_no(one_more_input):
 def main():
     print("Play Baseball")
     do_replay = True
+    do_force_quit = False
     while do_replay:
         user_input = 999
         result = [0, 0]
@@ -274,19 +275,30 @@ def main():
 
         while result != [3, 0]:
             user_input = input('Input guess number : ')
+            if user_input == '0':
+                do_force_quit = True
+                do_replay = False
+                break
+
             if is_validated_number(user_input):
                 result = get_strikes_or_ball(user_input, random_number)
-                print(f"Strike: {result[0]}, Ball: {result[1]}")
+                print(f"Strikes: {result[0]}, Balls: {result[1]}")
             else:
                 print("Wrong Input, Input again")
 
-        while not is_yes(user_input):
-            user_input = input('You win, one more(Y/N)? ')
-            if is_no(user_input):
-                do_replay = False
-                break
-            else:
-                print("Wrong Input, Input again")
+        if not do_force_quit:
+            while True:
+                user_input = input('You win, one more(Y/N)? ')
+                yes = is_yes(user_input)
+                no = is_no(user_input)
+                if not yes and not no:
+                    print("Wrong Input, Input again")
+                elif no:
+                    do_replay = False
+                    break
+                else:
+                    break
+                    
     # ==================================
     print("Thank you for using this program")
     print("End of the Game")
